@@ -1,0 +1,54 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+# I'd strongly recommend using a unique distribution name so you don't collide
+# with anyone else’s "big-vision" on PyPI / internal indexes.
+name = "big-vision"
+version = "0.1.0"
+description = "Installable fork of google-research/big_vision"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "Jaejoon Kim" }]
+
+# Keep this minimal; big_vision users often manage JAX/TF/Flax per accelerator stack.
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/J-joon/big_vision"
+
+[tool.hatch.build.targets.wheel]
+packages = ["big_vision"]
+
+# Optional: include extra non-.py assets if you rely on them at runtime.
+# hatchling will include package files, but explicit include avoids surprises.
+[tool.hatch.build]
+include = [
+  "big_vision/**",
+  "README.md",
+  "LICENSE",
+  "pyproject.toml",
+]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+extend-exclude = [
+  ".git",
+  ".venv",
+  "venv",
+  "build",
+  "dist",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+ignore = [
+  "E501",  # line length (optional; drop if you want strict formatting)
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
